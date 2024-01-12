@@ -7,7 +7,7 @@ class CategoryRules {
     //habilitar decorators em tsconfig.json, "experimentalDecorators": true, "emitDecoratorMetadata": true,
     //desabilitar a checagem de null no tsconfig.json, "strictNullChecks": false,
     //habilitar decoretors no .swcrc "legacyDecorator": true, "decoratorsMetadata": true
-    @MaxLength(255)
+    @MaxLength(255) // validacao de dominio
     @IsString()
     @IsNotEmpty()
     name: string

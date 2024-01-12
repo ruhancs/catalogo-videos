@@ -13,7 +13,7 @@ export class Uuid extends ValueObject {
     private validate(){
         const isValid = uuidValidate(this.id)
         if(!isValid) {
-            throw new InvalidUUIDError()
+            throw new InvalidUuidError()
         }
     }
 
@@ -22,9 +22,9 @@ export class Uuid extends ValueObject {
     }
 }
 
-export class InvalidUUIDError extends Error {
+export class InvalidUuidError extends Error {
     constructor(message?: string) {
-        super(message || "ID must be a valid uuid")
-        this.name = "InvalidUUIDError"
+      super(message || 'ID must be a valida UUID');
+      this.name = 'InvalidUuidError';
     }
-}
+  }

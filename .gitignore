@@ -1,3 +1,4 @@
 node_modules
 anotacoes.txt
 comandos.txt
+.env.test
