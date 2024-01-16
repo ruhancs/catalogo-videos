@@ -1,8 +1,5 @@
-import { Category } from '../../../core/category/domain/category.entity';
+import { Category } from '@core/category/domain/category.entity';
 
-// Padrao Fixture - forma de consolidar um volume de dados para testar o software, delimitaçao dos dados de entrada
-
-//variavel dos campos de resposta dos controllers
 const _keysInResponse = [
   'id',
   'name',

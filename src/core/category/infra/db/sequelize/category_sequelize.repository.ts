@@ -1,4 +1,4 @@
-import { Op } from 'sequelize';
+import { Op, literal } from 'sequelize';
 import { NotFoundError } from '../../../../shared/domain/errors/not_found';
 import { Uuid } from '../../../../shared/domain/value_objects/uuid.vo';
 import { Category } from '../../../domain/category.entity';
@@ -9,12 +9,22 @@ import {
 } from '../../../domain/category_repository';
 import { CategoryModel } from './category.model';
 import { CategoryModelMapper } from './category-mapper';
+import { SortDirection } from '@core/shared/domain/repository/search-params';
 
 export class CategorySequelizeRepository implements ICategoryRepository {
   sortableFields: string[] = ['name', 'created_at'];
+  orderBy = {
+    mysql: {
+      //iteral(`binary name ${sort_dir}` = expressao que sera passada para o banco de dados
+      //para utilizar o order_by do mysql trabalha por padrao de binario para ascii
+      //muda a comparacao das letras maiusculas e minusculas
+      name: (sort_dir: SortDirection) => literal(`binary name ${sort_dir}`), //ascii
+    },
+  };
 
   constructor(private categoryModel: typeof CategoryModel) {}
 
+  //mysql lida com a ordenacao diferente do sqlite
   async search(props: CategorySearchParams): Promise<CategorySearchResult> {
     const offset = (props.page - 1) * props.per_page;
     const limit = props.per_page;
@@ -27,8 +37,9 @@ export class CategorySequelizeRepository implements ICategoryRepository {
       }),
       //ordenacao
       ...(props.sort && this.sortableFields.includes(props.sort)
-        ? { order: [[props.sort, props.sort_dir]] }
+        ? { order: this.formatSort(props.sort, props.sort_dir) }
         : { order: [['created_at', 'desc']] }),
+      //? { order: [[props.sort, props.sort_dir]] }
       offset,
       limit,
     });
@@ -113,6 +124,16 @@ export class CategorySequelizeRepository implements ICategoryRepository {
   }
   getEntity(): new (...args: any[]) => Category {
     return Category;
+  }
+
+  //definir a ordenacao conforme o db
+  private formatSort(sort: string, sort_dir: SortDirection) {
+    //verificar o banco de dados que esta sendo usado
+    const dialect = this.categoryModel.sequelize!.getDialect() as 'mysql';
+    if (this.orderBy[dialect] && this.orderBy[dialect][sort]) {
+      return this.orderBy[dialect][sort](sort_dir);
+    }
+    return [[sort, sort_dir]];
   }
 
   private async _get(id: string) {

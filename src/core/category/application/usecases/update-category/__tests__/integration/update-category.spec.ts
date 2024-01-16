@@ -1,11 +1,10 @@
-import { NotFoundError } from "../../../../../../shared/domain/errors/not_found";
-import { Uuid } from "../../../../../../shared/domain/value_objects/uuid.vo";
-import { setupSequelize } from "../../../../../../shared/infra/testing/helpers";
-import { Category } from "../../../../../domain/category.entity";
-import { CategoryModel } from "../../../../../infra/db/sequelize/category.model";
-import { CategorySequelizeRepository } from "../../../../../infra/db/sequelize/category_sequelize.repository";
-import { UpdateCategoryUseCase } from "../../update-category.usecase";
-
+import { NotFoundError } from '../../../../../../shared/domain/errors/not_found';
+import { Uuid } from '../../../../../../shared/domain/value_objects/uuid.vo';
+import { setupSequelize } from '../../../../../../shared/infra/testing/helpers';
+import { Category } from '../../../../../domain/category.entity';
+import { CategoryModel } from '../../../../../infra/db/sequelize/category.model';
+import { CategorySequelizeRepository } from '../../../../../infra/db/sequelize/category_sequelize.repository';
+import { UpdateCategoryUseCase } from '../../update-category.usecase';
 
 describe('UpdateCategoryUseCase Integration Tests', () => {
   let useCase: UpdateCategoryUseCase;
@@ -66,7 +65,6 @@ describe('UpdateCategoryUseCase Integration Tests', () => {
           name: 'test',
           description: 'some description',
           is_active: true,
-  
         },
       },
       {
@@ -79,7 +77,6 @@ describe('UpdateCategoryUseCase Integration Tests', () => {
           name: 'test',
           description: 'some description',
           is_active: true,
-  
         },
       },
       {
@@ -93,7 +90,6 @@ describe('UpdateCategoryUseCase Integration Tests', () => {
           name: 'test',
           description: 'some description',
           is_active: false,
-  
         },
       },
       {
@@ -106,7 +102,6 @@ describe('UpdateCategoryUseCase Integration Tests', () => {
           name: 'test',
           description: 'some description',
           is_active: false,
-  
         },
       },
       {
@@ -120,7 +115,6 @@ describe('UpdateCategoryUseCase Integration Tests', () => {
           name: 'test',
           description: 'some description',
           is_active: true,
-  
         },
       },
       {
@@ -135,7 +129,6 @@ describe('UpdateCategoryUseCase Integration Tests', () => {
           name: 'test',
           description: null,
           is_active: false,
-  
         },
       },
     ];

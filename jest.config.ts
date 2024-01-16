@@ -202,8 +202,29 @@ const config: Config = {
   transform: {
     '^.+\\.(t|j)s$': '@swc/jest',
   },
+  //onde coleta a cobertura de testes
   collectCoverageFrom: ['**/*.(t|j)s'],
+  //aonde armazena o relatorio de cobertura
   coverageDirectory: '../coverage',
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '.interface.ts',
+    'shared/testing',
+    'shared-module/testing',
+    'validator-rules.ts',
+    '-fixture.ts',
+    '.input.ts',
+    '.d.ts',
+    'main.ts',
+  ],
+  coverageThreshold: {
+    global: {
+      statements: 80,
+      branches: 80,
+      functions: 80,
+      lines: 80,
+    },
+  },
   testEnvironment: 'node',
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
   setupFilesAfterEnv: ['./core/shared/infra/testing/expect-helpers.ts'],
