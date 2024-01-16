@@ -9,3 +9,15 @@ services:
       - 3000:3000
     volumes:
       - .:/home/node/app
+  db:
+    image: mysql:8
+    environment:
+      - MYSQL_DATABASE=micro_videos
+      - MYSQL_ROOT_PASSWORD=root
+    # volumes:
+    #   - ./.docker/mysql:/docker-entrypoint-initdb.d
+    #tmpfs para armazeenamento em memoria para testes serem mais rapidos, apaga apos o uso
+    tmpfs:
+      - /var/lib/mysql
+    security_opt:
+      - seccomp:unconfined
