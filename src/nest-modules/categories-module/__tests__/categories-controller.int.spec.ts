@@ -11,7 +11,7 @@ import { DeleteCategoryUseCase } from '../../../core/category/application/usecas
 import { GetCategoryUseCase } from '../../../core/category/application/usecases/get-category/get-category.usecase';
 import { ListCategoriesUseCase } from '../../../core/category/application/usecases/list-category/list-category.usecase';
 import { CategoryOutputMapper } from '../../../core/category/application/usecases/common/category-output';
-import { Category } from '../../../core/category/domain/category.entity';
+import { Category } from '../../../core/category/domain/category.aggregat';
 import {
   CategoryPresenter,
   CategoryCollectionPresenter,

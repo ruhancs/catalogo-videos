@@ -1,6 +1,6 @@
 import { DataType, Sequelize } from "sequelize-typescript"
 import { CategoryModel } from "../category.model"
-import { Category } from "../../../../domain/category.entity"
+import { Category } from "../../../../domain/category.aggregat"
 import { Config } from "../../../../../shared/infra/config"
 import { setupSequelize } from "../../../../../shared/infra/testing/helpers"
 

@@ -1,7 +1,7 @@
 import { Op, literal } from 'sequelize';
 import { NotFoundError } from '../../../../shared/domain/errors/not_found';
 import { Uuid } from '../../../../shared/domain/value_objects/uuid.vo';
-import { Category } from '../../../domain/category.entity';
+import { Category } from '../../../domain/category.aggregat';
 import {
   CategorySearchParams,
   CategorySearchResult,

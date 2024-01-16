@@ -5,7 +5,8 @@ import { applyGlobalConfig } from './nest-modules/global-config';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   //adicina filters,pipes, e interceptors
-  await app.listen(3000);
   applyGlobalConfig(app);
+
+  await app.listen(3000);
 }
 bootstrap();

@@ -1,7 +1,7 @@
 import { NotFoundError } from "../../../../../../shared/domain/errors/not_found";
 import { Uuid } from "../../../../../../shared/domain/value_objects/uuid.vo";
 import { setupSequelize } from "../../../../../../shared/infra/testing/helpers";
-import { Category } from "../../../../../domain/category.entity";
+import { Category } from "../../../../../domain/category.aggregat";
 import { CategoryModel } from "../../../../../infra/db/sequelize/category.model";
 import { CategorySequelizeRepository } from "../../../../../infra/db/sequelize/category_sequelize.repository";
 import { DeleteCategoryUseCase } from "../../delete-category.usecase";

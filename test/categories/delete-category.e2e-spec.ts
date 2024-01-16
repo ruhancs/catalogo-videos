@@ -1,7 +1,7 @@
 import request from 'supertest';
 import * as CategoryProviders from '../../src/nest-modules/categories-module/categories.providers';
 import { startApp } from '../../src/nest-modules/shared-module/testing/helpers';
-import { Category } from '../../src/core/category/domain/category.entity';
+import { Category } from '../../src/core/category/domain/category.aggregat';
 import { ICategoryRepository } from '../../src/core/category/domain/category_repository';
 
 describe('CategoriesController (e2e)', () => {

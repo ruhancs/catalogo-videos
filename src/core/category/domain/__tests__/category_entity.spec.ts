@@ -1,5 +1,5 @@
 import { Uuid } from '../../../shared/domain/value_objects/uuid.vo';
-import { Category } from '../category.entity';
+import { Category } from '../category.aggregat';
 
 describe('Category Without Validator Unit Tests', () => {
   beforeEach(() => {

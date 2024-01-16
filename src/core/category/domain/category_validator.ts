@@ -1,5 +1,5 @@
 import { IsBoolean, IsNotEmpty, IsOptional, IsString, MaxLength } from "class-validator"
-import { Category } from "./category.entity"
+import { Category } from "./category.aggregat"
 import { ClassValidatorFields } from "../../shared/domain/validators/class-validator-field"
 import { Notification } from "../../shared/domain/validators/notification";
 

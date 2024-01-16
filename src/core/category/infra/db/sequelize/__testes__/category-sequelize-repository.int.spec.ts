@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize-typescript"
-import { Category } from "../../../../domain/category.entity"
+import { Category } from "../../../../domain/category.aggregat"
 import { CategoryModel } from "../category.model"
 import { CategorySequelizeRepository } from "../category_sequelize.repository"
 import { CategorySearchParams, CategorySearchResult } from "../../../../domain/category_repository"

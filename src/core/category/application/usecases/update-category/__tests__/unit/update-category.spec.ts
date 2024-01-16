@@ -3,7 +3,7 @@ import {
   InvalidUuidError,
   Uuid,
 } from '../../../../../../shared/domain/value_objects/uuid.vo';
-import { Category } from '../../../../../domain/category.entity';
+import { Category } from '../../../../../domain/category.aggregat';
 import { CategoryInMemoryRepository } from '../../../../../infra/db/in-memory/category-in-memory.repository';
 import { UpdateCategoryUseCase } from '../../update-category.usecase';
 

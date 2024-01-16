@@ -5,7 +5,7 @@ import { startApp } from '../../src/nest-modules/shared-module/testing/helpers';
 import { CategoriesController } from '../../src/nest-modules/categories-module/categories.controller';
 import { UpdateCategoryFixture } from '../../src/nest-modules/categories-module/testing/category-fixture';
 import { CategoryOutputMapper } from '@core/category/application/usecases/common/category-output';
-import { Category } from '@core/category/domain/category.entity';
+import { Category } from '@core/category/domain/category.aggregat';
 import { ICategoryRepository } from '@core/category/domain/category_repository';
 import { Uuid } from '@core/shared/domain/value_objects/uuid.vo';
 
