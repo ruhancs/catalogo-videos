@@ -1,9 +1,9 @@
-import { IUseCase } from "../../../../shared/application/use-case.interface";
-import { EntityValidationError } from "../../../../shared/domain/validators/validation_error";
-import { Category } from "../../../domain/category.entity";
-import { ICategoryRepository } from "../../../domain/category_repository";
-import { CategoryOutputMapper } from "../common/category-output";
-import { CreateCategoryInput } from "./create-category-input";
+import { IUseCase } from '../../../../shared/application/use-case.interface';
+import { EntityValidationError } from '../../../../shared/domain/validators/validation_error';
+import { Category } from '../../../domain/category.entity';
+import { ICategoryRepository } from '../../../domain/category_repository';
+import { CategoryOutputMapper } from '../common/category-output';
+import { CreateCategoryInput } from './create-category-input';
 
 export class CreateCategoryUseCase
   implements IUseCase<CreateCategoryInput, CreateCategoryOutput>
@@ -13,7 +13,8 @@ export class CreateCategoryUseCase
   async execute(input: CreateCategoryInput): Promise<CreateCategoryOutput> {
     const entity = Category.create(input);
 
-    if (entity.notification.hasErrors()) { // Category.create valida
+    if (entity.notification.hasErrors()) {
+      // Category.create valida
       throw new EntityValidationError(entity.notification.toJSON());
     }
 
@@ -24,9 +25,9 @@ export class CreateCategoryUseCase
 }
 
 export type CreateCategoryOutput = {
-    id: string
-    name: string
-    description?: string|null
-    is_active?: boolean
-    created_at: Date
-}
+  id: string;
+  name: string;
+  description?: string | null;
+  is_active?: boolean;
+  created_at: Date;
+};
