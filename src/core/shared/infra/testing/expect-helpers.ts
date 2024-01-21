@@ -1,7 +1,8 @@
+import { ValueObject } from '../../domain/value_object';
 import { Notification } from '../../domain/validators/notification';
 
 //alterar a typagem do jest em jest.d.ts para adicionar essa funcao
-//configurar no jest.config para carregar a funcao 
+//configurar no jest.config para carregar a funcao
 // setupFilesAfterEnv: ["./shared/infra/testing/expect-helpers.ts"],
 expect.extend({
   notificationContainsErrorMessages(
@@ -32,6 +33,17 @@ expect.extend({
             `The validation errors not contains ${JSON.stringify(
               received,
             )}. Current: ${JSON.stringify(expected.toJSON())}`,
+        };
+  },
+  toBeValueObject(expected: ValueObject, received: ValueObject) {
+    return expected.equals(received)
+      ? { pass: true, message: () => '' }
+      : {
+          pass: false,
+          message: () =>
+            `The values object are not equal. Expected: ${JSON.stringify(
+              expected,
+            )} | Received: ${JSON.stringify(received)}`,
         };
   },
   // containsErrorMessages(expected: Expected, received: FieldsErrors) {
