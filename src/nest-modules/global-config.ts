@@ -15,6 +15,7 @@ export function applyGlobalConfig(app: INestApplication) {
     new ValidationPipe({
       //substituir erro 400 para 422, para melhorar semantica de erro
       errorHttpStatusCode: 422,
+      // forca o casting dos tipos, transforma a string do tipo de cast-member em int para armazenar
       transform: true,
     }),
   );
