@@ -1,9 +1,8 @@
-import { Entity } from "../../../domain/entity";
-import { SearchParams } from "../../../domain/repository/search-params";
-import { SearchResult } from "../../../domain/repository/search-result";
-import { Uuid } from "../../../domain/value_objects/uuid.vo";
-import { InMemorySearchableRepository } from "./in-memory.repository";
-
+import { Entity } from '../../../domain/entity';
+import { SearchParams } from '../../../domain/repository/search-params';
+import { SearchResult } from '../../../domain/repository/search-result';
+import { Uuid } from '../../../domain/value_objects/uuid.vo';
+import { InMemorySearchableRepository } from './in-memory.repository';
 
 type StubEntityConstructorProps = {
   entity_id?: Uuid;
