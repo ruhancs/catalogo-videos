@@ -147,7 +147,7 @@ describe('UpdateCategoryUseCase Integration Tests', () => {
         description: i.expected.description,
         is_active: i.expected.is_active,
       });
-      expect(entityUpdated.toJSON()).toMatchObject({
+      expect(entityUpdated!.toJSON()).toMatchObject({
         category_id: entity.category_id.id,
         name: i.expected.name,
         description: i.expected.description,

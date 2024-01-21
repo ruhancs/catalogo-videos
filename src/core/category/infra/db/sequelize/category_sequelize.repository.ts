@@ -1,7 +1,7 @@
 import { Op, literal } from 'sequelize';
 import { NotFoundError } from '../../../../shared/domain/errors/not_found';
 import { Uuid } from '../../../../shared/domain/value_objects/uuid.vo';
-import { Category } from '../../../domain/category.aggregat';
+import { Category, CategoryId } from '../../../domain/category.aggregat';
 import {
   CategorySearchParams,
   CategorySearchResult,
@@ -10,6 +10,7 @@ import {
 import { CategoryModel } from './category.model';
 import { CategoryModelMapper } from './category-mapper';
 import { SortDirection } from '@core/shared/domain/repository/search-params';
+import { InvalidArgumentError } from '@core/shared/domain/errors/invalid-argument.error';
 
 export class CategorySequelizeRepository implements ICategoryRepository {
   sortableFields: string[] = ['name', 'created_at'];
@@ -37,7 +38,7 @@ export class CategorySequelizeRepository implements ICategoryRepository {
       }),
       //ordenacao
       ...(props.sort && this.sortableFields.includes(props.sort)
-        ? { order: this.formatSort(props.sort, props.sort_dir) }
+        ? { order: this.formatSort(props.sort, props.sort_dir!) }
         : { order: [['created_at', 'desc']] }),
       //? { order: [[props.sort, props.sort_dir]] }
       offset,
@@ -107,6 +108,46 @@ export class CategorySequelizeRepository implements ICategoryRepository {
       is_active: model.is_active,
       created_at: model.createdAt,
     });
+  }
+
+  async findByIds(ids: CategoryId[]): Promise<Category[]> {
+    const models = await this.categoryModel.findAll({
+      where: {
+        category_id: {
+          [Op.in]: ids.map((id) => id.id),
+        },
+      },
+    });
+    return models.map((m) => CategoryModelMapper.toEntity(m));
+  }
+
+  async existsById(
+    ids: CategoryId[],
+  ): Promise<{ exists: CategoryId[]; not_exists: CategoryId[] }> {
+    if (!ids.length) {
+      throw new InvalidArgumentError(
+        'ids must be an array with at least one element',
+      );
+    }
+
+    const existsCategoryModels = await this.categoryModel.findAll({
+      attributes: ['category_id'],
+      where: {
+        category_id: {
+          [Op.in]: ids.map((id) => id.id),
+        },
+      },
+    });
+    const existsCategoryIds = existsCategoryModels.map(
+      (m) => new CategoryId(m.category_id),
+    );
+    const notExistsCategoryIds = ids.filter(
+      (id) => !existsCategoryIds.some((e) => e.equals(id)),
+    );
+    return {
+      exists: existsCategoryIds,
+      not_exists: notExistsCategoryIds,
+    };
   }
 
   async findAll(): Promise<Category[]> {

@@ -2,7 +2,10 @@ import { IUseCase } from '../../../../shared/application/use-case.interface';
 import { EntityValidationError } from '../../../../shared/domain/validators/validation_error';
 import { Category } from '../../../domain/category.aggregat';
 import { ICategoryRepository } from '../../../domain/category_repository';
-import { CategoryOutputMapper } from '../common/category-output';
+import {
+  CategoryOutput,
+  CategoryOutputMapper,
+} from '../common/category-output';
 import { CreateCategoryInput } from './create-category-input';
 
 export class CreateCategoryUseCase
@@ -24,10 +27,4 @@ export class CreateCategoryUseCase
   }
 }
 
-export type CreateCategoryOutput = {
-  id: string;
-  name: string;
-  description?: string | null;
-  is_active?: boolean;
-  created_at: Date;
-};
+export type CreateCategoryOutput = CategoryOutput;

@@ -3,8 +3,8 @@ import { Category } from '../../../domain/category.aggregat';
 export type CategoryOutput = {
   id: string;
   name: string;
-  description?: string | null;
-  is_active?: boolean;
+  description: string | null;
+  is_active: boolean;
   created_at: Date;
 };
 

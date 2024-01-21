@@ -1,6 +1,6 @@
-import { Uuid } from "../../shared/domain/value_objects/uuid.vo";
-import { Category } from "./category.aggregat";
-import { Chance } from "chance";
+import { Uuid } from '../../shared/domain/value_objects/uuid.vo';
+import { Category } from './category.aggregat';
+import { Chance } from 'chance';
 
 type PropOrFactory<T> = T | ((index: number) => T);
 
@@ -91,38 +91,38 @@ export class CategoryFakeBuilder<TBuild = any> {
   }
 
   get category_id() {
-    return this.getValue("category_id");
+    return this.getValue('category_id');
   }
 
   get name() {
-    return this.getValue("name");
+    return this.getValue('name');
   }
 
   get description() {
-    return this.getValue("description");
+    return this.getValue('description');
   }
 
   get is_active() {
-    return this.getValue("is_active");
+    return this.getValue('is_active');
   }
 
   get created_at() {
-    return this.getValue("created_at");
+    return this.getValue('created_at');
   }
 
   private getValue(prop: any) {
-    const optional = ["category_id", "created_at"];
+    const optional = ['category_id', 'created_at'];
     const privateProp = `_${prop}` as keyof this;
     if (!this[privateProp] && optional.includes(prop)) {
       throw new Error(
-        `Property ${prop} not have a factory, use 'with' methods`
+        `Property ${prop} not have a factory, use 'with' methods`,
       );
     }
     return this.callFactory(this[privateProp], 0);
   }
 
   private callFactory(factoryOrValue: PropOrFactory<any>, index: number) {
-    return typeof factoryOrValue === "function"
+    return typeof factoryOrValue === 'function'
       ? factoryOrValue(index)
       : factoryOrValue;
   }

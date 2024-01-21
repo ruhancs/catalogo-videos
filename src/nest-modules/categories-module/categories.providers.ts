@@ -8,6 +8,7 @@ import { UpdateCategoryUseCase } from '../../core/category/application/usecases/
 import { ICategoryRepository } from '../../core/category/domain/category_repository';
 import { CategoryModel } from '../../core/category/infra/db/sequelize/category.model';
 import { CategorySequelizeRepository } from '../../core/category/infra/db/sequelize/category_sequelize.repository';
+import { CategoriesIdExistsInDatabaseValidator } from '../../core/category/application/validations/categories-ids-exists-in-database.validator';
 
 //criar instancias dos repositorios criados no core
 export const REPOSITORIES = {
@@ -69,7 +70,20 @@ export const USE_CASES = {
   },
 };
 
+export const VALIDATIONS = {
+  CATEGORIES_IDS_EXISTS_IN_DATABASE_VALIDATOR: {
+    provide: CategoriesIdExistsInDatabaseValidator,
+    //injetar categoryRepo em CategoriesIdExistsInDatabaseValidator
+    useFactory: (categoryRepo: ICategoryRepository) => {
+      return new CategoriesIdExistsInDatabaseValidator(categoryRepo);
+    },
+    // repositorio que sera injetado quando CategoriesIdExistsInDatabaseValidator for instanciado
+    inject: [REPOSITORIES.CATEGORY_REPOSITORY.provide],
+  },
+};
+
 export const CATEGORY_PROVIDERS = {
   REPOSITORIES,
   USE_CASES,
+  VALIDATIONS,
 };

@@ -5,6 +5,7 @@ import { join } from 'path';
 
 function expectValidate(schema: Joi.Schema, value: any) {
   //nao abortar a validacao do expect de forma prematura
+  //@ts-expect-error - se o erro nao existir, o teste vai falhar
   return expect(schema.validate(value, { abortEarly: false }).error.message);
 }
 
