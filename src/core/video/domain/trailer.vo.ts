@@ -3,7 +3,7 @@ import { MediaFileValidator } from '@core/shared/domain/validators/media-file.va
 import {
   AudioVideoMedia,
   AudioVideoMediaStatus,
-} from '@core/shared/domain/value_objects/audio-video-media.vo';
+} from '@core/shared/domain/value-objects/audio-video-media.vo';
 import { VideoId } from '@core/video/domain/video.aggregate';
 
 export class Trailer extends AudioVideoMedia {
@@ -44,8 +44,8 @@ export class Trailer extends AudioVideoMedia {
 
   static create({ name, raw_location }) {
     return new Trailer({
-      name: name,
-      raw_location: raw_location,
+      name,
+      raw_location,
       status: AudioVideoMediaStatus.PENDING,
     });
   }
@@ -59,7 +59,7 @@ export class Trailer extends AudioVideoMedia {
     });
   }
 
-  completed(encoded_location: string) {
+  complete(encoded_location: string) {
     return new Trailer({
       name: this.name,
       raw_location: this.raw_location,

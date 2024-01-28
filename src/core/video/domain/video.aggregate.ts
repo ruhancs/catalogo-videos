@@ -1,15 +1,19 @@
-
 import { CategoryId } from '../../category/domain/category.aggregat';
 import { AggregateRoot } from '../../shared/domain/aggregate-root';
 import { GenreId } from '../../genre/domain/genre.aggregate';
 import { CastMemberId } from '../../cast-member/domain/cast-member.aggregate';
-import { Uuid } from '@core/shared/domain/value_objects/uuid.vo';
+import { Uuid } from '../../shared/domain/value-objects/uuid.vo';
 import { Rating } from './rating.vo';
 import { Banner } from './banner.vo';
 import { Thumbnail } from './thumbnail.vo';
 import { ThumbnailHalf } from './thumbnail-half.vo';
-import { Trailer } from './tariler.vo';
+import { Trailer } from './trailer.vo';
 import { VideoMedia } from './video-media.vo';
+import { VideoValidatorFactory } from './video.validator';
+import { AudioVideoMediaStatus } from '../../shared/domain/value-objects/audio-video-media.vo';
+import { VideoCreatedEvent } from './domain-events/video-created.event';
+import { VideoAudioMediaReplaced } from './domain-events/video-audio-media-replaced.event';
+import { VideoFakeBuilder } from './video-fake.builder';
 
 export type VideoConstructorProps = {
   video_id?: VideoId;
@@ -20,11 +24,11 @@ export type VideoConstructorProps = {
   is_opened: boolean;
   is_published: boolean;
 
-  banner?: Banner;
-  thumbnail?: Thumbnail;
-  thumbnail_half?: ThumbnailHalf;
-  trailer?: Trailer;
-  video?: VideoMedia;
+  banner?: Banner | null;
+  thumbnail?: Thumbnail | null;
+  thumbnail_half?: ThumbnailHalf | null;
+  trailer?: Trailer | null;
+  video?: VideoMedia | null;
   rating: Rating;
 
   categories_id: Map<string, CategoryId>;
@@ -63,11 +67,11 @@ export class Video extends AggregateRoot {
   is_opened: boolean;
   is_published: boolean; //uploads
 
-  banner?: Banner | null;
-  thumbnail?: Thumbnail | null;
-  thumbnail_half?: ThumbnailHalf | null;
-  trailer?: Trailer | null;
-  video?: VideoMedia | null;
+  banner: Banner | null;
+  thumbnail: Thumbnail | null;
+  thumbnail_half: ThumbnailHalf | null;
+  trailer: Trailer | null;
+  video: VideoMedia | null;
   rating: Rating;
 
   categories_id: Map<string, CategoryId>;
@@ -89,12 +93,26 @@ export class Video extends AggregateRoot {
     this.banner = props.banner ?? null;
     this.thumbnail = props.thumbnail ?? null;
     this.thumbnail_half = props.thumbnail_half ?? null;
+    this.trailer = props.trailer ?? null;
+    this.video = props.video ?? null;
     this.rating = props.rating;
 
     this.categories_id = props.categories_id;
     this.genres_id = props.genres_id;
     this.cast_members_id = props.cast_members_id;
     this.created_at = props.created_at ?? new Date();
+
+    //registrar o disparo de VideoCreatedEvent, ao chamar applyEvent(VideoCreatedEvent), dispara funcao onVideoCreated
+    this.registerHandler(
+      VideoCreatedEvent.name,
+      this.onVideoCreated.bind(this),
+    );
+
+    //registrar o disparo de VideoAudioMediaReplaced, ao chamar applyEvent(VideoAudioMediaReplaced), dispara funcao onAudioVideoMediaReplaced
+    this.registerHandler(
+      VideoAudioMediaReplaced.name,
+      this.onAudioVideoMediaReplaced.bind(this),
+    );
   }
 
   static create(props: VideoCreateCommand) {
@@ -106,6 +124,28 @@ export class Video extends AggregateRoot {
       is_published: false,
     });
     video.validate(['title']);
+    //disparar o evento, evento registrado no constructor que executa onVideoCreated
+    video.applyEvent(
+      new VideoCreatedEvent({
+        video_id: video.video_id,
+        title: video.title,
+        description: video.description,
+        year_launched: video.year_launched,
+        duration: video.duration,
+        rating: video.rating,
+        is_opened: video.is_opened,
+        is_published: video.is_published,
+        banner: video.banner,
+        thumbnail: video.thumbnail,
+        thumbnail_half: video.thumbnail_half,
+        trailer: video.trailer,
+        video: video.video,
+        categories_id: Array.from(video.categories_id.values()),
+        genres_id: Array.from(video.genres_id.values()),
+        cast_members_id: Array.from(video.cast_members_id.values()),
+        created_at: video.created_at,
+      }),
+    );
     return video;
   }
 
@@ -152,6 +192,7 @@ export class Video extends AggregateRoot {
 
   replaceTrailer(trailer: Trailer): void {
     this.trailer = trailer;
+    //dispara evento localmente
     this.applyEvent(
       new VideoAudioMediaReplaced({
         aggregate_id: this.video_id,
@@ -163,6 +204,7 @@ export class Video extends AggregateRoot {
 
   replaceVideo(video: VideoMedia): void {
     this.video = video;
+    //dispara evento localmente
     this.applyEvent(
       new VideoAudioMediaReplaced({
         aggregate_id: this.video_id,
@@ -218,6 +260,7 @@ export class Video extends AggregateRoot {
     this.cast_members_id = new Map(castMembersId.map((id) => [id.id, id]));
   }
 
+  //ao disparar o evento verifica se o video esta marcado como publicado, se nao estiver tenta publicar
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onVideoCreated(_event: VideoCreatedEvent) {
     if (this.is_published) {
@@ -227,6 +270,7 @@ export class Video extends AggregateRoot {
     this.tryMarkAsPublished();
   }
 
+  //ao disparar o evento verifica se o video esta marcado como publicado, se nao estiver tenta publicar
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onAudioVideoMediaReplaced(_event: VideoAudioMediaReplaced) {
     if (this.is_published) {
