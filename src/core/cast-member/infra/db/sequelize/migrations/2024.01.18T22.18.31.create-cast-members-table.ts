@@ -3,7 +3,7 @@ import type { MigrationFn } from 'umzug';
 
 export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
   await sequelize.getQueryInterface().createTable('cast_members', {
-    cast_member_id_id: {
+    cast_member_id: {
       type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true,

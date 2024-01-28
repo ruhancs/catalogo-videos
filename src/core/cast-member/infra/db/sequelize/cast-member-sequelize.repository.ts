@@ -159,3 +159,5 @@ export class CastMemberSequelizeRepository implements ICastMemberRepository {
     return CastMember;
   }
 }
+
+export { CastMemberModel };

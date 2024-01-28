@@ -1,6 +1,6 @@
 import { ValueObject } from '@core/shared/domain/value_object';
 import { AggregateRoot } from '../../shared/domain/aggregate-root';
-import { Uuid } from '../../shared/domain/value_objects/uuid.vo';
+import { Uuid } from '../../shared/domain/value-objects/uuid.vo';
 import { CastMemberValidatorFactory } from './cast-member.validator';
 import { CastMemberType } from './cast-member-type.vo';
 import { CastMemberFakeBuilder } from './cast-member-fake.builder';
