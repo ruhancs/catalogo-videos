@@ -1,7 +1,7 @@
 import { Entity } from "../../../domain/entity";
 import { NotFoundError } from "../../../domain/errors/not_found";
 import { ValueObject } from "../../../domain/value_object";
-import { Uuid } from "../../../domain/value_objects/uuid.vo";
+import { Uuid } from "../../../domain/value-objects/uuid.vo";
 import { InMemoryRepository } from "./in-memory.repository";
 
 type StubEntityProps = {

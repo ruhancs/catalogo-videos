@@ -7,6 +7,7 @@ import { AggregateRoot } from '../../../domain/aggregate-root';
 export class UnitOfWorkSequelize implements IUnitOfWork {
   //instancia do transaction do sequelize
   private transaction: Transaction | null;
+  //set para evitar que o aggregateRoot nao seja adicionado mais de 1 vez
   private aggregateRoots: Set<AggregateRoot> = new Set<AggregateRoot>();
 
   constructor(private sequelize: Sequelize) {}
@@ -68,9 +69,11 @@ export class UnitOfWorkSequelize implements IUnitOfWork {
     }
   }
 
+  // adiciona agregado no uow para os servicos enviar os eventos do agregado
   addAggregateRoot(aggregateRoot: AggregateRoot): void {
     this.aggregateRoots.add(aggregateRoot);
   }
+
   getAggregateRoots(): AggregateRoot[] {
     return [...this.aggregateRoots];
   }
