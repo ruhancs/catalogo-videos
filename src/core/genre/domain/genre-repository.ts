@@ -1,4 +1,4 @@
-import { Uuid } from '@core/shared/domain/value_objects/uuid.vo';
+import { Uuid } from '@core/shared/domain/value-objects/uuid.vo';
 import { CategoryId } from '../../category/domain/category.aggregat';
 import { ISearchableRepository } from '../../shared/domain/repository/repository_interface';
 import {
