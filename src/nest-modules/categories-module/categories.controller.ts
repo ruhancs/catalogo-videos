@@ -10,6 +10,7 @@ import {
   ParseUUIDPipe,
   HttpCode,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -24,7 +25,10 @@ import {
 } from './categories.presenter';
 import { CategoryOutput } from '@core/category/application/usecases/common/category-output';
 import { SearchCategoriesDto } from './dto/search-categories.dto';
+import { AuthGuard } from '../auth-module/auth.guard';
+import { CheckIsAdminGuard } from '../auth-module/check-is-admin.guard';
 
+@UseGuards(AuthGuard, CheckIsAdminGuard) //todas rotas de categories protegidas por login
 @Controller('categories')
 export class CategoriesController {
   @Inject(CreateCategoryUseCase)
@@ -53,6 +57,9 @@ export class CategoriesController {
 
   @Get()
   async search(@Query() searchParamsDto: SearchCategoriesDto) {
+    //gerar tag teste de armazenamento de log, [tag-para-busca] valor-para-a-tag
+    //test é uma key para buscas no kibana
+    //console.log('[tag-test:valor-tag] info');
     const output = await this.listUseCase.execute(searchParamsDto);
     return new CategoryCollectionPresenter(output);
   }

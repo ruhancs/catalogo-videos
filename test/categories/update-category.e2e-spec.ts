@@ -7,7 +7,7 @@ import { UpdateCategoryFixture } from '../../src/nest-modules/categories-module/
 import { CategoryOutputMapper } from '@core/category/application/usecases/common/category-output';
 import { Category } from '@core/category/domain/category.aggregat';
 import { ICategoryRepository } from '@core/category/domain/category_repository';
-import { Uuid } from '@core/shared/domain/value_objects/uuid.vo';
+import { Uuid } from '@core/shared/domain/value-objects/uuid.vo';
 
 describe('CategoriesController (e2e)', () => {
   const uuid = '9366b7dc-2d71-4799-b91c-c64adb205104';

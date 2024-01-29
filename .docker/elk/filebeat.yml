@@ -1,0 +1,33 @@
+#como filebeat ira capturar as informacoes
+filebeat:
+  autodiscover:
+    providers:
+    #provider do docker para ter acesso ao docker
+      - type: docker
+        labels.dedot: true
+        templates:
+          - condition:
+              contains:
+              #pegar os dados do container que contem a label filebeat_collector=true
+                container.labels.filebeat_collector: "true"
+            config:
+              - type: container
+                paths:
+                #entrar na pasta compartilhada do container e pegar todos logs
+                  - "/var/lib/docker/containers/${data.docker.container.id}/*.log"
+                #os dados que serao capturados
+                processors:
+                  - decode_json_fields:
+                      when.equals:
+                      #conversao dos dados para json
+                        docker.container.labels.decode_log_event_to_json_object: "true"
+                      fields: ["message"]
+                      target: ""
+                      overwrite_keys: true
+
+#enviar os dados para o logstash
+output:
+  logstash:
+    hosts: "logstash:5044"
+
+logging.metrics.enabled: false

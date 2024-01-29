@@ -1,5 +1,5 @@
 import { IUseCase } from "../../../../shared/application/use-case.interface";
-import { Uuid } from "../../../../shared/domain/value_objects/uuid.vo";
+import { Uuid } from "../../../../shared/domain/value-objects/uuid.vo";
 import { ICategoryRepository } from "../../../domain/category_repository";
 
 export class DeleteCategoryUseCase

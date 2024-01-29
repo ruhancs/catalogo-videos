@@ -1,5 +1,5 @@
 import { EntityValidationError } from '../../../../shared/domain/validators/validation_error';
-import { Uuid } from '../../../../shared/domain/value_objects/uuid.vo';
+import { Uuid } from '../../../../shared/domain/value-objects/uuid.vo';
 import { Category } from '../../../domain/category.aggregat';
 import { CategoryModel } from './category.model';
 

@@ -1,14 +1,21 @@
-version: "3"
+version: '3'
 
 services:
   app:
     build: .
-    #permissao chmod +x .docker/start.sh
     command: ./.docker/start.sh
     ports:
       - 3000:3000
     volumes:
       - .:/home/node/app
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    labels:
+    #label que para o filebeat coletar os logs do container
+      filebeat_collector: true
+  
   db:
     image: mysql:8
     environment:
@@ -16,8 +23,15 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     # volumes:
     #   - ./.docker/mysql:/docker-entrypoint-initdb.d
-    #tmpfs para armazeenamento em memoria para testes serem mais rapidos, apaga apos o uso
     tmpfs:
       - /var/lib/mysql
     security_opt:
       - seccomp:unconfined
+  
+  rabbitmq:
+    build: ./.docker/rabbitmq
+    ports:
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin

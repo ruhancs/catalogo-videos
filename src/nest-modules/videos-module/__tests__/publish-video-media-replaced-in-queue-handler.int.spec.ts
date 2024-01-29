@@ -27,6 +27,7 @@ import { VIDEOS_PROVIDERS } from '../videos.providers';
 import { ChannelWrapper } from 'amqp-connection-manager';
 import { ConsumeMessage } from 'amqplib';
 import { ApplicationModule } from 'src/nest-modules/application-module/application.module';
+import { AuthModule } from 'src/nest-modules/auth-module/auth.module';
 
 //verificar se o evento esta sendo publicado no rabbitmq
 describe('PublishVideoMediaReplacedInQueueHandler Integration Tests', () => {
@@ -41,7 +42,7 @@ describe('PublishVideoMediaReplacedInQueueHandler Integration Tests', () => {
         EventModule,
         ApplicationModule,
         RabbitmqModule.forRoot(),
-        //AuthModule,
+        AuthModule,
         VideosModule,
       ],
     })

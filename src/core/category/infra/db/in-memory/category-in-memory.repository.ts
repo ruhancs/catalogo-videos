@@ -1,5 +1,5 @@
 import { SortDirection } from '../../../../shared/domain/repository/search-params';
-import { Uuid } from '../../../../shared/domain/value_objects/uuid.vo';
+import { Uuid } from '../../../../shared/domain/value-objects/uuid.vo';
 import { InMemorySearchableRepository } from '../../../../shared/infra/db/in-memory/in-memory.repository';
 import { Category, CategoryId } from '../../../domain/category.aggregat';
 import {

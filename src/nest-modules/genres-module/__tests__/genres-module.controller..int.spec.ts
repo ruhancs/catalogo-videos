@@ -7,7 +7,7 @@ import { UpdateGenreUseCase } from '../../../core/genre/application/usecases/upd
 import { ListGenresUseCase } from '../../../core/genre/application/usecases/list-genre/list-genres.usecase';
 import { GetGenreUseCase } from '../../../core/genre/application//usecases/get-genre/get-genre.usecase';
 import { DeleteGenreUseCase } from '../../../core/genre/application/usecases/delete-genre/delete-genre.usecase';
-import { Uuid } from '../../../core/shared/domain/value_objects/uuid.vo';
+import { Uuid } from '../../../core/shared/domain/value-objects/uuid.vo';
 import { GenreCollectionPresenter } from '../genres.presenter';
 import {
   CreateGenreFixture,
@@ -25,6 +25,7 @@ import { Category } from '../../../core/category/domain/category.aggregat';
 import { GENRES_PROVIDERS } from '../genres.providers';
 import { CATEGORY_PROVIDERS } from '../../categories-module/categories.providers';
 import { GenreOutputMapper } from '../../../core/genre/application/common/genre-output';
+import { AuthModule } from 'src/nest-modules/auth-module/auth.module';
 
 describe('GenresController Integration Tests', () => {
   let controller: GenresController;
@@ -33,7 +34,12 @@ describe('GenresController Integration Tests', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigModule.forRoot(), DatabaseModule, GenresModule],
+      imports: [
+        ConfigModule.forRoot(),
+        DatabaseModule,
+        AuthModule,
+        GenresModule,
+      ],
     })
       //inserir o UnitOfWork, pois ele é um scope request
       .overrideProvider('UnitOfWork')

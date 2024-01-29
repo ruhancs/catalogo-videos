@@ -1,4 +1,4 @@
-import { Uuid } from '../../../../../../shared/domain/value_objects/uuid.vo';
+import { Uuid } from '../../../../../../shared/domain/value-objects/uuid.vo';
 import { setupSequelize } from '../../../../../../shared/infra/testing/helpers';
 import { CategoryModel } from '../../../../../infra/db/sequelize/category.model';
 import { CategorySequelizeRepository } from '../../../../../infra/db/sequelize/category_sequelize.repository';

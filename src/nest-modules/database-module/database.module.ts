@@ -1,17 +1,36 @@
 import {
   GenreCategoryModel,
   GenreModel,
-} from '@core/genre/infra/db/sequelize/genre-model';
+} from '../../core/genre/infra/db/sequelize/genre-model';
 import { CastMemberModel } from '../../core/cast-member/infra/db/sequelize/cast-member.model';
 import { CategoryModel } from '../../core/category/infra/db/sequelize/category.model';
 import { Global, Module, Scope } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SequelizeModule, getConnectionToken } from '@nestjs/sequelize';
 import { CONFIG_SCHEMA_TYPE } from 'src/nest-modules/config-module/config.module';
-import { UnitOfWorkSequelize } from '@core/shared/infra/db/sequelize/unit-of-work-sequelize';
+import { UnitOfWorkSequelize } from '../../core/shared/infra/db/sequelize/unit-of-work-sequelize';
 import { Sequelize } from 'sequelize-typescript';
+import {
+  VideoCastMemberModel,
+  VideoCategoryModel,
+  VideoGenreModel,
+  VideoModel,
+} from '../../core/video/infra/db/sequelize/video.model';
+import { ImageMediaModel } from '../../core/video/infra/db/sequelize/image-media.model';
+import { AudioVideoMediaModel } from '../../core/video/infra/db/sequelize/audio-video-media.model';
 
-const models = [CategoryModel, CastMemberModel, GenreModel, GenreCategoryModel];
+const models = [
+  CategoryModel,
+  CastMemberModel,
+  GenreModel,
+  GenreCategoryModel,
+  VideoModel,
+  ImageMediaModel,
+  AudioVideoMediaModel,
+  VideoCategoryModel,
+  VideoGenreModel,
+  VideoCastMemberModel,
+];
 
 //modulo de configuracoes do db
 @Global() //tornar o modulo acessivel globalmente

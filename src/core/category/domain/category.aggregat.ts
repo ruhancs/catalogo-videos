@@ -1,6 +1,6 @@
 import { AggregateRoot } from '../../shared/domain/aggregate-root';
 import { ValueObject } from '../../shared/domain/value_object';
-import { Uuid } from '../../shared/domain/value_objects/uuid.vo';
+import { Uuid } from '../../shared/domain/value-objects/uuid.vo';
 import { CategoryFakeBuilder } from './category-fake-builder';
 import { CategoryValidatorFactory } from './category_validator';
 

@@ -1,4 +1,4 @@
-import { Uuid } from '../../../shared/domain/value_objects/uuid.vo';
+import { Uuid } from '../../../shared/domain/value-objects/uuid.vo';
 import { Category } from '../category.aggregat';
 
 describe('Category Without Validator Unit Tests', () => {

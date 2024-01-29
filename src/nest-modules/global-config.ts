@@ -25,7 +25,7 @@ export function applyGlobalConfig(app: INestApplication) {
     new WrapperDataInterceptor(), //modifica as saidas dos controller, adiciona data antes do body
     new ClassSerializerInterceptor(app.get(Reflector)),
   );
-  //capturar erros de not found e erro de validacao de entidade
+  //capturar erros de not found e erro de validacao de entidade, filtros globais
   app.useGlobalFilters(
     new EntityValidationErrorFilter(),
     new NotFoundErrorFilter(),

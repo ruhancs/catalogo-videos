@@ -6,7 +6,7 @@ import {
   CategorySearchResult,
 } from '../../../../domain/category_repository';
 import { NotFoundError } from '../../../../../shared/domain/errors/not_found';
-import { Uuid } from '../../../../../shared/domain/value_objects/uuid.vo';
+import { Uuid } from '../../../../../shared/domain/value-objects/uuid.vo';
 import { setupSequelize } from '../../../../../shared/infra/testing/helpers';
 
 describe('CategorySequelizeRepository Integration tests', () => {

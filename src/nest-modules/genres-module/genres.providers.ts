@@ -13,7 +13,7 @@ import { CATEGORY_PROVIDERS } from '../categories-module/categories.providers';
 import { GenreSequelizeRepository } from '../../core/genre/infra/db/sequelize/genre-sequelize-repository';
 import { GenreModel } from '../../core/genre/infra/db/sequelize/genre-model';
 import { CategoriesIdExistsInDatabaseValidator } from '../../core/category/application/validations/categories-ids-exists-in-database.validator';
-//import { GenresIdExistsInDatabaseValidator } from '../../core/genre/application/validations/genres-ids-exists-in-database.validator';
+import { GenresIdExistsInDatabaseValidator } from '../../core/genre/application/validations/genres-ids-exists-in-database.validator';
 
 export const REPOSITORIES = {
   GENRE_REPOSITORY: {
@@ -115,7 +115,6 @@ export const USE_CASES = {
   },
 };
 
-/*
 export const VALIDATIONS = {
   GENRES_IDS_EXISTS_IN_DATABASE_VALIDATOR: {
     provide: GenresIdExistsInDatabaseValidator,
@@ -125,10 +124,9 @@ export const VALIDATIONS = {
     inject: [REPOSITORIES.GENRE_REPOSITORY.provide],
   },
 };
-*/
 
 export const GENRES_PROVIDERS = {
   REPOSITORIES,
   USE_CASES,
-  //VALIDATIONS,
+  VALIDATIONS,
 };

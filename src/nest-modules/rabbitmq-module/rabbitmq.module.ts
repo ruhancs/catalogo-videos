@@ -28,8 +28,12 @@ import { RabbitmqConsumeErrorFilter } from './rabbitmq-consume-error/rabbitmq-co
 })
 */
 
+type RabbitMqModuleOptions = {
+  enableConsumers?: boolean;
+};
+
 export class RabbitmqModule {
-  static forRoot(): DynamicModule {
+  static forRoot(options: RabbitMqModuleOptions = {}): DynamicModule {
     return {
       module: RabbitmqModule,
       imports: [
@@ -37,6 +41,10 @@ export class RabbitmqModule {
         RabbitMQModule.forRootAsync(RabbitMQModule, {
           useFactory: (configService: ConfigService) => ({
             uri: configService.get('RABBITMQ_URI') as string,
+            //escolha se cria iniciacao dos consumers separado das rotas http, true ou false
+            registerHandlers:
+              options.enableConsumers ||
+              configService.get('RABBITMQ_REGISTER_HANDLERS'),
             // criar as exchanges que serao utilizadas, dlx.exchange é a exchange da deadletter queue
             //direct.delayed exchange para reinserir msgs que deu erro na fila apos certo tempo
             exchanges: [

@@ -37,3 +37,13 @@ lerna-debug.log*
 
 anotacoes.txt
 comandos.txt
+
+.env.test
+.env
+.env.e2e
+mysql-docker-test
+.gitignore
+micro-admin-typescript.json
+containers-tests
+generate-token.js
+create-rsa.js

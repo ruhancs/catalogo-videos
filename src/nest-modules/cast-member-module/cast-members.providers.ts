@@ -1,11 +1,12 @@
-import { CreateCastMemberUseCase } from '@core/cast-member/application/usecases/create-cast-member/create-cast-member.usecase';
-import { DeleteCastMemberUseCase } from '@core/cast-member/application/usecases/delete-cast-member/delete-cast-member.usecase';
-import { GetCastMemberUseCase } from '@core/cast-member/application/usecases/get-cast-member/get-cast-member.usecase';
-import { ListCastMembersUseCase } from '@core/cast-member/application/usecases/list-cast-member/list-cast-member.usecase';
-import { ICastMemberRepository } from '@core/cast-member/domain/cast-member.repository';
-import { CastMemberInMemoryRepository } from '@core/cast-member/infra/db/in-memory/cast-member-in-memory.repository';
-import { CastMemberSequelizeRepository } from '@core/cast-member/infra/db/sequelize/cast-member-sequelize.repository';
-import { CastMemberModel } from '@core/cast-member/infra/db/sequelize/cast-member.model';
+import { CastMembersIdExistsInDatabaseValidator } from '@core/cast-member/application/validations/cast-members-ids-exists-in-database.validator';
+import { CreateCastMemberUseCase } from '../../core/cast-member/application/usecases/create-cast-member/create-cast-member.usecase';
+import { DeleteCastMemberUseCase } from '../../core/cast-member/application/usecases/delete-cast-member/delete-cast-member.usecase';
+import { GetCastMemberUseCase } from '../../core/cast-member/application/usecases/get-cast-member/get-cast-member.usecase';
+import { ListCastMembersUseCase } from '../../core/cast-member/application/usecases/list-cast-member/list-cast-member.usecase';
+import { ICastMemberRepository } from '../../core/cast-member/domain/cast-member.repository';
+import { CastMemberInMemoryRepository } from '../../core/cast-member/infra/db/in-memory/cast-member-in-memory.repository';
+import { CastMemberSequelizeRepository } from '../../core/cast-member/infra/db/sequelize/cast-member-sequelize.repository';
+import { CastMemberModel } from '../../core/cast-member/infra/db/sequelize/cast-member.model';
 import { getModelToken } from '@nestjs/sequelize';
 
 //criar instancias dos repositorios criados no core
@@ -70,7 +71,18 @@ export const USE_CASES = {
   },
 };
 
+export const VALIDATIONS = {
+  CAST_MEMBERS_IDS_EXISTS_IN_DATABASE_VALIDATOR: {
+    provide: CastMembersIdExistsInDatabaseValidator,
+    useFactory: (castMemberRepo: ICastMemberRepository) => {
+      return new CastMembersIdExistsInDatabaseValidator(castMemberRepo);
+    },
+    inject: [REPOSITORIES.CAST_MEMBER_REPOSITORY.provide],
+  },
+};
+
 export const CAST_MEMBERS_PROVIDERS = {
   REPOSITORIES,
   USE_CASES,
+  VALIDATIONS,
 };

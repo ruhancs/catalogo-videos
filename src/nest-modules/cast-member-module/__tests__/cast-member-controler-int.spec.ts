@@ -9,7 +9,7 @@ import { CreateCastMemberUseCase } from '@core/cast-member/application/usecases/
 import { DeleteCastMemberUseCase } from '@core/cast-member/application/usecases/delete-cast-member/delete-cast-member.usecase';
 import { GetCastMemberUseCase } from '@core/cast-member/application/usecases/get-cast-member/get-cast-member.usecase';
 import { ListCastMembersUseCase } from '@core/cast-member/application/usecases/list-cast-member/list-cast-member.usecase';
-import { Uuid } from '@core/shared/domain/value_objects/uuid.vo';
+import { Uuid } from '@core/shared/domain/value-objects/uuid.vo';
 import { CastmemberController } from '../cast-member.controller';
 import { CastMemberCollectionPresenter } from '../cast-member.presenter';
 import { CastmemberModule } from '../cast-member.module';

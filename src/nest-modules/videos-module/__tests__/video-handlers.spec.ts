@@ -10,6 +10,7 @@ import { EventModule } from 'src/nest-modules/event-module/event.module';
 import { SharedModule } from 'src/nest-modules/shared-module/shared.module';
 import { VideosModule } from '../videos.module';
 import { ApplicationModule } from 'src/nest-modules/application-module/application.module';
+import { AuthModule } from 'src/nest-modules/auth-module/auth.module';
 
 //mock rabbitMQmodule, para ser usado no video-module, AmqpConnection é exportado pois o videos-module depende dele
 class RabbitmqModuleFake {
@@ -40,7 +41,7 @@ describe('VideosModule Unit Tests', () => {
         EventModule,
         ApplicationModule,
         DatabaseModule,
-        //AuthModule,
+        AuthModule,
         RabbitmqModuleFake.forRoot(),
         VideosModule,
       ],
